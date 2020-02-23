@@ -1,0 +1,36 @@
+{
+  "window.zoomLevel": 1,
+  "editor.minimap.enabled": false,
+  "window.menuBarVisibility": "toggle",
+  "workbench.colorTheme": "Material Theme Ocean",
+  "workbench.iconTheme": "eq-material-theme-icons-ocean",
+  "extensions.ignoreRecommendations": true,
+  "window.titleBarStyle": "native",
+  "editor.detectIndentation": true,
+
+  "vim.easymotion": true,
+  "vim.easymotionMarkerHeight": 18,
+  "vim.easymotionMarkerWidthPerChar": 9,
+  "vim.easymotionMarkerFontSize": "18",
+  "vim.easymotionMarkerFontWeight": "bold",
+  "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
+  "vim.incsearch": true,
+  "vim.foldfix": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    },
+  ],
+  "vim.leader": "<space>",
+
+  "liveshare.featureSet": "insiders",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+}
