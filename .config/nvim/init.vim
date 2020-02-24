@@ -126,6 +126,7 @@ augroup END
   nmap <silent> gd <Plug>(coc-definition)zz
   nmap <silent> gD <C-w><C-v><Plug>(coc-definition)zz
   nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gY <C-w><C-v><Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
 

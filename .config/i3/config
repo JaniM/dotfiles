@@ -150,6 +150,8 @@
   bindsym $mod+d exec rofi -show run
   bindsym $mod+Tab exec rofi -show window
 
+  bindsym $mod+x exec ~/scripts/select-bg
+
   bindsym $mod+F1 exec xdg-open "https://i3wm.org/docs/userguide.html"
   bindsym $mod+Control+F12 exec terminator -p dropdown -T dropdown --command="fish -c 'vim ~/.config/i3/config; and i3 reload'"
   bindsym $mod+F12 exec terminator -T dropdown --command="fish -c 'vim ~/.config/i3/config'"

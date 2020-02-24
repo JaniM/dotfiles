@@ -1,0 +1,12 @@
+#!/bin/bash
+
+img=$(ls ~/Pictures/backgrounds | rofi -dmenu)
+if [ ! -n "$img" ]; then
+  exit
+fi
+
+fimg="$HOME/Pictures/backgrounds/$img"
+
+cp "$fimg" ~/.bg-image
+feh --bg-scale ~/.bg-image
+
