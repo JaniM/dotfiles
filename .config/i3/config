@@ -144,13 +144,21 @@
   for_window [instance="pavucontrol"] floating enable, move scratchpad
   bindsym F9 [instance="pavucontrol"] scratchpad show, move position center
 
-  bindsym Print exec sh -c 'maim -s | tee "~/Pictures/shots/$(date +\"%Y-%m-%d_%H-%M-%S\")" | xclip -i -sel clip -t image/png'
+  bindsym Print exec sh -c 'maim -s | tee "$HOME/Pictures/shots/$(date +%Y-%m-%d_%H-%M-%S).png" | xclip -i -sel clip -t image/png'
   bindsym Control+Print exec scrot -u '%F-%s.png' -e 'xclip -sel clip -t image/png -i < $f && mv $f ~/Pictures/shots/'
 
   bindsym $mod+d exec rofi -show run
   bindsym $mod+Tab exec rofi -show window
 
-  bindsym $mod+x exec ~/scripts/select-bg
+  set $mode_run Run: [b]ackground, [c]lone
+
+  bindsym $mod+x mode "$mode_run"
+
+  mode "$mode_run" {
+    bindsym b exec ~/scripts/select-bg; mode "default"
+    bindsym c exec ~/scripts/gitclone; mode "default"
+    bindsym Escape mode "default"
+  }
 
   bindsym $mod+F1 exec xdg-open "https://i3wm.org/docs/userguide.html"
   bindsym $mod+Control+F12 exec terminator -p dropdown -T dropdown --command="fish -c 'vim ~/.config/i3/config; and i3 reload'"

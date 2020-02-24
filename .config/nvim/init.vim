@@ -35,14 +35,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'tpope/vim-fugitive' " Git
 
-  Plug 'easymotion/vim-easymotion'
-
   Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<c-space>"
     let g:UltiSnipsJumpForwardTrigger="<c-b>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
     let g:UltiSnipsEditSplit="vertical"
 
+  Plug 'easymotion/vim-easymotion'
+  Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
 
   " TS & TSX syntax files
@@ -53,12 +53,18 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+filetype plugin indent on
+
 set background=dark    " Setting dark mode
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_improved_warnings = 1
 let g:gruvbox_italic=1
 " set termguicolors
 colorscheme gruvbox
+
+" Transparent background
+hi Normal guibg=NONE ctermbg=NONE
+let g:fzf_colors = { 'bg': ['fg', 'NONE'] }
 
 let g:goyo_width = 120
 let g:goyo_height = "85%"
@@ -67,7 +73,7 @@ let g:limelight_conceal_ctermfg = 240
 augroup goyo_lime
   autocmd!
   autocmd! User GoyoEnter Limelight
-  autocmd! User GoyoLeave Limelight!
+  autocmd! User GoyoLeave Limelight! | hi Normal guibg=NONE ctermbg=NONE
 augroup END
 
 " COC configs

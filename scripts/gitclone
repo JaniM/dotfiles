@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set +eu
+
+url="$(xclip -o -sel clip | rofi -dmenu -p "Git address")"
+
+if [ ! -n "$url" ]; then
+  exit
+fi
+
+path="$(echo $url | grep -o '[^:/]\+/[^/]\+$')"
+parts=( $(echo $path | grep -o '[^/]\+') )
+owner="${parts[0]}"
+name="${parts[1]/.git/}"
+
+cd $HOME/gits
+mkdir $owner || true
+cd $owner
+
+if [ ! -d "$name" ]; then
+  git clone "$url"
+  cd $name
+else
+  cd $name
+  git pull --rebase
+fi
+
+terminator --command="fish -i -C 'cd ~/gits/$owner/$name'"
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-img=$(ls ~/Pictures/backgrounds | rofi -dmenu)
+img=$(ls ~/Pictures/backgrounds | rofi -dmenu -p "Select background")
 if [ ! -n "$img" ]; then
   exit
 fi
