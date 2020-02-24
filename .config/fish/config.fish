@@ -29,16 +29,16 @@ function c
   printf "%s" $argv | xclip -i -sel clip
 end
 
-export NPM_PACKAGES="$HOME/.npm-packages"
-export FZF_DEFAULT_OPTS="--height=20"
-export FZF_DEFAULT_COMMAND='rg --files --follow'
+set -x NPM_PACKAGES "$HOME/.npm-packages"
+set -x FZF_DEFAULT_OPTS "--height=20"
+set -x FZF_DEFAULT_COMMAND 'rg --files --follow'
 
-export EDITOR=vim
-export PATH="$NPM_PACKAGES/bin:$PATH"
+set -x EDITOR vim
+set -x PATH "$NPM_PACKAGES/bin" $PATH
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-set MANPATH # delete if you already modified MANPATH elsewhere in your config
-export MANPATH="$NPM_PACKAGES/share/man:(manpath)"
+set MANPATH
+set -x MANPATH "$NPM_PACKAGES/share/man:"(manpath)
 
 thefuck --alias | source
 

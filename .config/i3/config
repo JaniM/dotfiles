@@ -161,7 +161,7 @@
   }
 
   bindsym $mod+F1 exec xdg-open "https://i3wm.org/docs/userguide.html"
-  bindsym $mod+Control+F12 exec terminator -p dropdown -T dropdown --command="fish -c 'vim ~/.config/i3/config; and i3 reload'"
+  bindsym $mod+Control+F12 exec terminator -p dropdown -T dropdown --command="fish -c 'vim ~/.config/i3/config && i3 reload'"
   bindsym $mod+F12 exec terminator -T dropdown --command="fish -c 'vim ~/.config/i3/config'"
   bindsym $mod+p exec terminator -T dropdown --command="sh -i -c '~/.config/i3/edit_clip.sh'"
   bindsym $mod+b exec firefox
