@@ -237,6 +237,9 @@
   bindsym $mod+i resize shrink height 10 px or 2 ppt
   bindsym $mod+o resize grow width 10 px or 2 ppt
 
+  bindsym $mod+Control+plus exec compton-trans -c -o +5
+  bindsym $mod+Control+minus exec compton-trans -c -o -5
+
 ## -- i3 meta --
 
   bindsym $mod+Control+c reload
