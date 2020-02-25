@@ -1,12 +1,15 @@
 " vim: foldmethod=indent
 
 set nohlsearch
-set relativenumber number numberwidth=2
+set number numberwidth=2
 set expandtab shiftwidth=2 softtabstop=2
 set splitright splitbelow
 set shell=/usr/bin/fish
 let mapleader = ","
 inoremap jj <Esc>
+
+" Always show some lines around the cursor
+set scrolloff=5
 
 call plug#begin('~/.local/share/nvim/plugged')
   Plug 'gruvbox-community/gruvbox'
@@ -49,6 +52,25 @@ call plug#begin('~/.local/share/nvim/plugged')
   " TODO: these seem kinda terrible, find better ones?
   Plug 'HerringtonDarkholme/yats'
   " Plug 'peitalin/vim-jsx-typescript'
+
+  " Python folding rules
+  Plug 'tmhedberg/SimpylFold'
+
+  " Markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+
+  function! BuildMdComposer(info)
+    if a:info.status != 'unchanged' || a:info.force
+      if has('nvim')
+        !cargo +stable build --release --locked
+      else
+        !cargo +stable build --release --locked --no-default-features --features json-rpc
+      endif
+    endif
+  endfunction
+
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildMdComposer') }
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -113,7 +135,7 @@ augroup END
   endfunction
 
   " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  " inoremap <silent><expr> <c-space> coc#refresh()
 
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
   " position. Coc only does snippet and additional edit on confirm.
@@ -239,7 +261,32 @@ xmap <Leader>k <Plug>(Limelight)
 nmap <Leader>k <Plug>(Limelight)
 nmap <Leader>kk :Limelight!!<Return>
 nmap <Leader>e <Plug>(coc-diagnostic-next)
+nnoremap <Leader>bgt :hi Normal guibg=NONE ctermbg=NONE<CR>
+nnoremap <Leader>bgo :colorscheme gruvbox<CR>
+nnoremap <Leader>vc :vsp ~/.config/nvim/init.vim<CR>
 nnoremap - :
 vnoremap > >gv
 vnoremap < <gv
+nnoremap <C-left> <C-w>h
+nnoremap <C-right> <C-w>l
+nnoremap <C-up> <C-w>k
+nnoremap <C-down> <C-w>j
+nnoremap <Leader>G :vert Gstatus<CR>
+
+augroup general_style
+  autocmd!
+  " Get rid of trailing whitespace
+  autocmd BufWritePre * :%s/\s\+$//e
+  autocmd BufWritePost init.vim source ~/.config/nvim/init.vim
+augroup END
+
+" Python
+let g:SimpylFold_docstring_preview = 1
+
+" Markdown
+set conceallevel=2
+let g:markdown_composer_autostart=0
+let g:markdown_composer_browser=$HOME."/scripts/firefox-window"
+let g:markdown_composer_custom_css=['http://thomasf.github.io/solarized-css/solarized-dark.min.css']
+let g:markdown_composer_syntax_theme='solarized-dark'
 
