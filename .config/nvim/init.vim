@@ -264,6 +264,7 @@ nmap <Leader>e <Plug>(coc-diagnostic-next)
 nnoremap <Leader>bgt :hi Normal guibg=NONE ctermbg=NONE<CR>
 nnoremap <Leader>bgo :colorscheme gruvbox<CR>
 nnoremap <Leader>vc :vsp ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>vf :vsp ~/.config/nvim/ftplugin<CR>
 nnoremap - :
 vnoremap > >gv
 vnoremap < <gv

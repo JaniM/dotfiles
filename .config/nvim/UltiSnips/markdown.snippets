@@ -2,3 +2,9 @@ snippet l "link"
 [${1:name}](${2:https://})
 endsnippet
 
+snippet t "table"
+| ${1:title} |
+|-${1/[^|]/-/g}-|
+${2:after}
+endsnippet
+
