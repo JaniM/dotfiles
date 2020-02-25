@@ -1,0 +1,12 @@
+
+snippet class "quick class"
+class ${1:name} {
+  ${2:fields}
+
+  constructor(props: {
+${2/^\s*(\w[^\n]*)$/    $1/mg}
+  }) {
+${2/^\s*(\w+)[^\n]*$/    this.$1 = props.$1;/mg}
+  }
+}
+endsnippet
