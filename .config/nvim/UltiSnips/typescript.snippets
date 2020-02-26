@@ -10,3 +10,13 @@ ${2/^\s*(\w+)[^\n]*$/    this.$1 = props.$1;/mg}
   }
 }
 endsnippet
+
+snippet oo "unpacked object"
+{${1/:[^;]+(;|$)/,/g}}: {$1}
+endsnippet
+
+snippet f "function" b
+function $1( $2 )$3 {
+  $4
+}
+endsnippet

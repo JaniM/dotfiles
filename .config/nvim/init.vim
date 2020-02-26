@@ -273,6 +273,7 @@ nnoremap <C-right> <C-w>l
 nnoremap <C-up> <C-w>k
 nnoremap <C-down> <C-w>j
 nnoremap <Leader>G :vert Gstatus<CR>
+nnoremap <C-h> :help <C-r><C-w><CR>
 
 augroup general_style
   autocmd!
@@ -285,7 +286,10 @@ augroup END
 let g:SimpylFold_docstring_preview = 1
 
 " Markdown
-set conceallevel=2
+
+" Open links in a vsplit
+let g:vim_markdown_edit_url_in = 'vsplit'
+
 let g:markdown_composer_autostart=0
 let g:markdown_composer_browser=$HOME."/scripts/firefox-window"
 let g:markdown_composer_custom_css=['http://thomasf.github.io/solarized-css/solarized-dark.min.css']

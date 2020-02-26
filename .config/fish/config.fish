@@ -31,7 +31,7 @@ end
 
 set -x NPM_PACKAGES "$HOME/.npm-packages"
 set -x FZF_DEFAULT_OPTS "--height=20"
-set -x FZF_DEFAULT_COMMAND 'rg --files --follow'
+set -x FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore'
 
 set -x EDITOR vim
 set -x PATH "$NPM_PACKAGES/bin" $PATH
