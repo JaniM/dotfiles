@@ -2,7 +2,7 @@
 
 set nohlsearch
 set number numberwidth=2
-set expandtab shiftwidth=2 softtabstop=2
+set expandtab shiftwidth=2 softtabstop=2 tabstop=4
 set splitright splitbelow
 set shell=/usr/bin/fish
 let mapleader = ","
@@ -274,6 +274,8 @@ nnoremap <C-up> <C-w>k
 nnoremap <C-down> <C-w>j
 nnoremap <Leader>G :vert Gstatus<CR>
 nnoremap <C-h> :help <C-r><C-w><CR>
+nnoremap <F2> :w<CR>
+inoremap <F2> <C-o>:w<CR>
 
 augroup general_style
   autocmd!

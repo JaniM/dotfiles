@@ -2,15 +2,11 @@
 " Format tables when you type ||
 inoremap <buffer> <Bar><Bar> <Bar><Esc>:TableFormat<CR>:sil! norm f\|<CR>a
 
-" Highlight long lines
-highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-match OverLength /\%>80v.*/
-
 " Automatically insert a newline after 80 characters
-set textwidth=79
+setlocal textwidth=79
 
 " Enable conceal for formatting
-set conceallevel=2
+setlocal conceallevel=2
 
 function! CountNotes()
     try

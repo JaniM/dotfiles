@@ -3,6 +3,7 @@
   broadcast_all = <Primary><Alt>a
   broadcast_group = <Primary><Alt>g
   broadcast_off = <Primary><Alt>o
+  help = None
 [layouts]
   [[default]]
     [[[child1]]]

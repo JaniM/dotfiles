@@ -18,7 +18,7 @@ abbr gcal 'git commit . -m "style: lint"'
 abbr gp "git pull --rebase"
 abbr gs "git status"
 abbr gd "git diff"
-abbr go 'git checkout'
+abbr gco 'git checkout'
 
 alias podlog "kubectl logs -f (kubectl get pods | fzf -n1 --header-lines=1 --height=20 --reverse | cut -f1 -d\ )"
 alias pod "kubectl get pods | fzf -n1 --header-lines=1 --height=20 --reverse | cut -f1 -d\ "
@@ -34,7 +34,7 @@ set -x FZF_DEFAULT_OPTS "--height=20"
 set -x FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore'
 
 set -x EDITOR vim
-set -x PATH "$NPM_PACKAGES/bin" $PATH
+set -x PATH "$NPM_PACKAGES/bin" "$HOME/go/bin" $PATH
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 set MANPATH
