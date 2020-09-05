@@ -11,7 +11,8 @@
 (use-package! color-identifiers-mode
   :config
   (add-hook 'after-init-hook #'global-color-identifiers-mode)
-  (setq color-identifiers:min-color-saturation 0.5))
+  (setq color-identifiers:min-color-saturation 0.3)
+  (setq color-identifiers:color-luminance 0.7))
 
 (setq display-line-numbers-type t)
 
