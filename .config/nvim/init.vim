@@ -5,12 +5,14 @@ set number numberwidth=2
 set expandtab shiftwidth=2 softtabstop=2 tabstop=4
 set splitright splitbelow
 set shell=/usr/bin/fish
+let maplocalleader = " "
 let mapleader = ","
 inoremap jj <Esc>
 
 " Always show some lines around the cursor
 set scrolloff=5
 
+" Plugin loader docs https://github.com/junegunn/vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
   Plug 'gruvbox-community/gruvbox'
   Plug 'kien/rainbow_parentheses.vim'
@@ -73,6 +75,14 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildMdComposer') }
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  " Productivity
+  Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
+  Plug 'jceb/vim-orgmode'
+  Plug 'mattn/calendar-vim'
+  Plug 'vim-scripts/utl.vim'
+  Plug 'vim-scripts/repeat.vim'
+  Plug 'vim-scripts/speeddating.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -276,6 +286,8 @@ nnoremap <Leader>G :vert Gstatus<CR>
 nnoremap <C-h> :help <C-r><C-w><CR>
 nnoremap <F2> :w<CR>
 inoremap <F2> <C-o>:w<CR>
+nmap w <Plug>(easymotion-w)
+nmap b <Plug>(easymotion-b)
 
 augroup general_style
   autocmd!
@@ -297,3 +309,6 @@ let g:markdown_composer_browser=$HOME."/scripts/firefox-window"
 let g:markdown_composer_custom_css=['http://thomasf.github.io/solarized-css/solarized-dark.min.css']
 let g:markdown_composer_syntax_theme='solarized-dark'
 
+" Orgmode
+" This is broken https://github.com/jceb/vim-orgmode/issues/293
+let g:org_agenda_files = ['~/org/*.org']

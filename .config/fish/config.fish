@@ -2,9 +2,9 @@
 # Remove the annoying header
 set fish_greeting
 
-abbr fc "vim ~/.config/fish/config.fish; and source ~/.config/fish/config.fish"
-abbr ic "vim ~/.config/i3/config; and i3 reload"
-abbr cf "vim (find ~/.config -type f | fzf)"
+alias fc "vim ~/.config/fish/config.fish; and source ~/.config/fish/config.fish"
+alias ic "vim ~/.config/i3/config; and i3 reload"
+alias cf "vim (find ~/.config -type f | fzf)"
 
 abbr ts "taito start"
 abbr ti "taito install"
@@ -25,6 +25,12 @@ alias pod "kubectl get pods | fzf -n1 --header-lines=1 --height=20 --reverse | c
 alias podc "pod | tee /dev/tty | head -c -1 | xclip -i -sel clip"
 alias kubecontext "kubectl config use-context (kubectl config get-contexts | fzf -n2 --header-lines=1 --height=20 --reverse | tr '*' ' ' | awk '{print \$1;}')"
 
+function org
+  fish -c "cd ~/org && vim $argv"
+end
+abbr o 'org index.org'
+abbr ow 'org work.org'
+
 function c
   printf "%s" $argv | xclip -i -sel clip
 end
@@ -34,7 +40,7 @@ set -x FZF_DEFAULT_OPTS "--height=20"
 set -x FZF_DEFAULT_COMMAND 'rg --files --follow --no-ignore'
 
 set -x EDITOR vim
-set -x PATH "$NPM_PACKAGES/bin" "$HOME/go/bin" $PATH
+set -x PATH "$NPM_PACKAGES/bin" "$HOME/.emacs.d/bin" $PATH
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 set MANPATH

@@ -6,7 +6,7 @@ inoremap <buffer> <Bar><Bar> <Bar><Esc>:TableFormat<CR>:sil! norm f\|<CR>a
 setlocal textwidth=79
 
 " Enable conceal for formatting
-setlocal conceallevel=2
+" setlocal conceallevel=2
 
 function! CountNotes()
     try
