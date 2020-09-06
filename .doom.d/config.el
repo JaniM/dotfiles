@@ -4,7 +4,7 @@
 (setq auth-sources '("~/.authinfo"))
 
 (setq doom-theme 'doom-gruvbox)
-(set-face-attribute 'default nil :height 150)
+(setq inhibit-x-resources t)
 
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -16,6 +16,20 @@
 
 (setq display-line-numbers-type t)
 
+(setq doom-font (font-spec :family "Fira Code" :size 20)
+      doom-variable-pitch-font (font-spec :family "Roboto" :size 21 :weight 'bold) ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "Fira Code" :size 20)
+      doom-big-font (font-spec :family "Fira Code" :size 28))
+
+(add-hook 'org-mode-hook #'visual-line-mode)
+(use-package! mixed-pitch
+  :hook (text-mode . mixed-pitch-mode)
+  :config (setq mixed-pitch-set-height 't))
+
+(use-package! fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '("x" "#["))
+  :hook prog-mode)
+
 (setq org-directory "~/org")
 
 ;; Restore default TAB behavior
@@ -24,8 +38,22 @@
 
 (setq org-default-notes-file (concat org-directory "/index.org"))
 
+(use-package! org-notify
+  :config
+  (org-notify-start)
+  (org-notify-add 'default
+                  '(:time "1h" :period "10m" :duration 20
+                    :actions -notify/window)
+                  '(:time "2h" :period "10m" :actions -message)
+                  '(:time "1d" :duration 300 :actions -notify/window)))
+
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
 ;; patch rustic for stable rust
 (after! rustic
   (setq rustic-flycheck-clippy-params "--message-format=json"))
+
+(setq lsp-rust-analyzer-cargo-watch-command "clippy")
+
+(after! projectile
+  (setq projectile-project-root-files '(".git")))

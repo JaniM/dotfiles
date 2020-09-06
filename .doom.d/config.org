@@ -1,6 +1,8 @@
 #+TITLE: Config
 #+STARTUP: overview
 
+Lots stolen from [[https://gitlab.com/thatonelutenist/dotfiles/-/blob/master/emacs.d/settings.org][Nathan's awesome config]].
+
 * Identity
 Some functionality uses this to identify you, e.g. GPG configuration, email
 clients, file templates and snippets.
@@ -43,7 +45,7 @@ available. You can either set `doom-theme' or manually load a theme with the
 Best themes: `doom-vibrant`, `doom-moonlight`, `doom-gruvbox`, `doom-acario-dark`, `doom-horizon`
 #+BEGIN_SRC elisp
 (setq doom-theme 'doom-gruvbox)
-(set-face-attribute 'default nil :height 150)
+(setq inhibit-x-resources t)
 
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -54,14 +56,44 @@ Best themes: `doom-vibrant`, `doom-moonlight`, `doom-gruvbox`, `doom-acario-dark
   (setq color-identifiers:color-luminance 0.7))
 #+END_SRC
 
-This determines the style of line numbers in effect. If set to `nil', line
-numbers are disabled. For relative line numbers, set this to `relative'.
-
+This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
 #+BEGIN_SRC elisp
 (setq display-line-numbers-type t)
 #+END_SRC
 
+** Fonts
+#+BEGIN_SRC elisp
+(setq doom-font (font-spec :family "Fira Code" :size 20)
+      doom-variable-pitch-font (font-spec :family "Roboto" :size 21 :weight 'bold) ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "Fira Code" :size 20)
+      doom-big-font (font-spec :family "Fira Code" :size 28))
+#+END_SRC
+
+** Mixed pitch
+Depends on [[doom-modules:ui/zen/config.el][doom's zen-mode's config]].
+#+BEGIN_SRC elisp
+(add-hook 'org-mode-hook #'visual-line-mode)
+(use-package! mixed-pitch
+  :hook (text-mode . mixed-pitch-mode)
+  :config (setq mixed-pitch-set-height 't))
+#+END_SRC
+
+** Fira code ligatures
+Adds support for code ligatures, requires [[https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip][Fira Code Symbol]] font for this to work.
+#+BEGIN_SRC elisp :tangle packages.el
+(package! fira-code-mode)
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(use-package! fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '("x" "#["))
+  :hook prog-mode)
+#+END_SRC
+
 * Org mode configuration
+[[https://orgmode.org/manual/index.html][org-mode manual]]
+[[https://orgmode.org/worg/org-contrib/][org-con trib index]]
+** base
 
 #+BEGIN_SRC elisp
 (setq org-directory "~/org")
@@ -77,6 +109,19 @@ The capturing target is the default for new templates, but it's not actually res
 (setq org-default-notes-file (concat org-directory "/index.org"))
 #+END_SRC
 
+** org-notify
+Comes from org-contrib.
+#+BEGIN_SRC elisp
+(use-package! org-notify
+  :config
+  (org-notify-start)
+  (org-notify-add 'default
+                  '(:time "1h" :period "10m" :duration 20
+                    :actions -notify/window)
+                  '(:time "2h" :period "10m" :actions -message)
+                  '(:time "1d" :duration 300 :actions -notify/window)))
+#+END_SRC
+
 * Git
 Note: magit uses `auth-sources` to authorize with Github & Gitlab.
 
@@ -87,12 +132,23 @@ Note: magit uses `auth-sources` to authorize with Github & Gitlab.
 * Rust
 Uses[[https://github.com/brotzeit/rustic][ Rustic]].
 
+** Flycheck fix
 Rustic's default clippy config doesn't work on stable rust yet. See [[https://github.com/brotzeit/rustic#flycheck]]
 
 #+BEGIN_SRC elisp
 ;; patch rustic for stable rust
 (after! rustic
   (setq rustic-flycheck-clippy-params "--message-format=json"))
+#+END_SRC
+** Use clippy as checker on LSP mode
+#+BEGIN_SRC elisp
+(setq lsp-rust-analyzer-cargo-watch-command "clippy")
+#+END_SRC
+* Projectile
+This is a bit terrible because it depends on load order..
+#+BEGIN_SRC elisp
+(after! projectile
+  (setq projectile-project-root-files '(".git")))
 #+END_SRC
 
 * Doom hints
