@@ -41,7 +41,8 @@
 (use-package! org-notify
   :config
   (org-notify-start)
-  (org-notify-add 'default
+  (org-notify-add 'default)
+  (org-notify-add 'yes
                   '(:time "1h" :period "10m" :duration 20
                     :actions -notify/window)
                   '(:time "2h" :period "10m" :actions -message)
