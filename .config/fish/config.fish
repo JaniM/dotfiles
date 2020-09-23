@@ -47,4 +47,5 @@ set MANPATH
 set -x MANPATH "$NPM_PACKAGES/share/man:"(manpath)
 
 thefuck --alias | source
+starship init fish | source
 

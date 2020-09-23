@@ -21,10 +21,11 @@
       doom-unicode-font (font-spec :family "Fira Code" :size 20)
       doom-big-font (font-spec :family "Fira Code" :size 28))
 
-(add-hook 'org-mode-hook #'visual-line-mode)
 (use-package! mixed-pitch
-  :hook (text-mode . mixed-pitch-mode)
-  :config (setq mixed-pitch-set-height 't))
+  :config
+  (setq mixed-pitch-set-height 't)
+  (add-hook 'org-mode-hook #'mixed-pitch-mode)
+  (add-hook 'markdown-mode-hook #'mixed-pitch-mode))
 
 (use-package! fira-code-mode
   :custom (fira-code-mode-disabled-ligatures '("x" "#["))
@@ -48,6 +49,8 @@
                   '(:time "2h" :period "10m" :actions -message)
                   '(:time "1d" :duration 300 :actions -notify/window)))
 
+(add-hook 'org-mode-hook #'visual-line-mode)
+
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
 ;; patch rustic for stable rust
@@ -56,5 +59,13 @@
 
 (setq lsp-rust-analyzer-cargo-watch-command "clippy")
 
+(add-hook 'markdown-mode-hook #'visual-line-mode)
+
 (after! projectile
   (setq projectile-project-root-files '(".git")))
+
+(after! calendar
+  (setq calendar-week-start-day 1))
+
+(after! yasnippet
+  (define-key yas-minor-mode-map (kbd "C-§") #'yas-expand))
