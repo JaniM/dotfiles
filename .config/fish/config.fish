@@ -20,6 +20,8 @@ abbr gs "git status"
 abbr gd "git diff"
 abbr gco 'git checkout'
 
+abbr dc 'docker-compose'
+
 alias podlog "kubectl logs -f (kubectl get pods | fzf -n1 --header-lines=1 --height=20 --reverse | cut -f1 -d\ )"
 alias pod "kubectl get pods | fzf -n1 --header-lines=1 --height=20 --reverse | cut -f1 -d\ "
 alias podc "pod | tee /dev/tty | head -c -1 | xclip -i -sel clip"
