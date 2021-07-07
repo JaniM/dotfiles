@@ -71,7 +71,7 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 
 ** Mixed pitch
 Depends on [[doom-modules:ui/zen/config.el][doom's zen-mode's config]].
-#+BEGIN_SRC elisp
+#+BEGIN_SRC elisp :tangle no
 (use-package! mixed-pitch
   :config
   (setq mixed-pitch-set-height 't)
@@ -191,6 +191,26 @@ Bind `d` to combine both regions
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+#+end_src
+* Desktop
+#+begin_src elisp
+(add-hook 'after-init-hook #'desktop-read)
+#+end_src
+* TabNine
+#+begin_src elisp :tangle packages.el
+(package! company-tabnine)
+#+end_src
+
+#+begin_src elisp
+(use-package! company-tabnine)
+(after! company-tabnine
+  (set-company-backend! 'python-mode #'company-tabnine)
+  (set-company-backend! 'rustic-mode #'company-tabnine)
+  ;; Trigger completion immediately.
+  (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  (setq company-show-numbers t))
 #+end_src
 * Doom hints
 Here are some additional functions/macros that could help you configure Doom:

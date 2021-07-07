@@ -21,12 +21,6 @@
       doom-unicode-font (font-spec :family "Fira Code" :size 20)
       doom-big-font (font-spec :family "Fira Code" :size 28))
 
-(use-package! mixed-pitch
-  :config
-  (setq mixed-pitch-set-height 't)
-  (add-hook 'org-mode-hook #'mixed-pitch-mode)
-  (add-hook 'markdown-mode-hook #'mixed-pitch-mode))
-
 (use-package! fira-code-mode
   :custom (fira-code-mode-disabled-ligatures '("x" "#["))
   :hook prog-mode)
@@ -83,3 +77,15 @@
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 (defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+
+(add-hook 'after-init-hook #'desktop-read)
+
+(use-package! company-tabnine)
+(after! company-tabnine
+  (set-company-backend! 'python-mode #'company-tabnine)
+  (set-company-backend! 'rustic-mode #'company-tabnine)
+  ;; Trigger completion immediately.
+  (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  (setq company-show-numbers t))

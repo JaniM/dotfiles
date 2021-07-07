@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+case $1 in
+  s|scene)
+    shift
+    scenes="$(hueadm scenes)"
+    header="$(head -n 1 <<< "$scenes")"
+    scenes="$(tail -n +2 <<< "$scenes")"
+    if [ "$#" -ne 0 ]; then
+      scenes="$(grep "$*" <<< "$scenes")"
+    fi
+    if [ "$(wc -l <<< "$scenes")" -ne 1 ]; then
+      scenes="$(fzf --header="$header" <<< "$scenes")"
+    fi
+    echo "$scenes" \
+      | cut -d' ' -f1 \
+      | xargs -I {} hueadm group 3 scene={}
+    ;;
+  o|off)
+    hueadm group 3 off
+    ;;
+esac
+
