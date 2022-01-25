@@ -4,7 +4,7 @@ set nohlsearch
 set number numberwidth=2
 set expandtab shiftwidth=2 softtabstop=2 tabstop=4
 set splitright splitbelow
-set shell=/usr/bin/fish
+"set shell=/usr/bin/fish
 let maplocalleader = " "
 let mapleader = ","
 inoremap jj <Esc>
@@ -40,12 +40,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'tpope/vim-fugitive' " Git
 
-  Plug 'SirVer/ultisnips'
-    let g:UltiSnipsExpandTrigger="<c-space>"
-    let g:UltiSnipsJumpForwardTrigger="<c-b>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-    let g:UltiSnipsEditSplit="vertical"
-
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
@@ -54,9 +48,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   " TODO: these seem kinda terrible, find better ones?
   Plug 'HerringtonDarkholme/yats'
   " Plug 'peitalin/vim-jsx-typescript'
-
-  " Python folding rules
-  Plug 'tmhedberg/SimpylFold'
 
   " Markdown
   Plug 'godlygeek/tabular'
@@ -95,7 +86,7 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 
 " Transparent background
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 let g:fzf_colors = { 'bg': ['fg', 'NONE'] }
 
 let g:goyo_width = 120
@@ -282,12 +273,14 @@ nnoremap <C-left> <C-w>h
 nnoremap <C-right> <C-w>l
 nnoremap <C-up> <C-w>k
 nnoremap <C-down> <C-w>j
-nnoremap <Leader>G :vert Gstatus<CR>
+nnoremap <Leader>G :vert Git<CR>
 nnoremap <C-h> :help <C-r><C-w><CR>
 nnoremap <F2> :w<CR>
 inoremap <F2> <C-o>:w<CR>
-nmap w <Plug>(easymotion-w)
-nmap b <Plug>(easymotion-b)
+tnoremap <C-w> <C-\>
+
+autocmd FileType rust nnoremap <buffer> <LocalLeader>r :wa<bar>!cargo run<CR>
+autocmd FileType rust nnoremap <buffer> <LocalLeader>t :wa<bar>!cargo test<CR>
 
 augroup general_style
   autocmd!
@@ -295,9 +288,6 @@ augroup general_style
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd BufWritePost init.vim source ~/.config/nvim/init.vim
 augroup END
-
-" Python
-let g:SimpylFold_docstring_preview = 1
 
 " Markdown
 
@@ -312,3 +302,11 @@ let g:markdown_composer_syntax_theme='solarized-dark'
 " Orgmode
 " This is broken https://github.com/jceb/vim-orgmode/issues/293
 let g:org_agenda_files = ['~/org/*.org']
+
+" Debugger
+packadd termdebug
+autocmd FileType rust let g:termdebugger="rust-gdb"
+
+" Python
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', '.venv']
+
