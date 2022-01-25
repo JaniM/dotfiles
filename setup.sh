@@ -18,5 +18,6 @@ link scripts
 link .doom.d
 link .tmux.conf
 link .config/Code/User/settings.json
+link .config/nvim
 
 
