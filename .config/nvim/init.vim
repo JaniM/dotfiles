@@ -310,3 +310,27 @@ autocmd FileType rust let g:termdebugger="rust-gdb"
 " Python
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', '.venv']
 
+""" Bullet journaling
+" Mark as done
+autocmd FileType text nnoremap <buffer> <LocalLeader>d V:s/-/✓<CR>
+" Transfer to current day
+autocmd FileType text nnoremap <buffer> <LocalLeader>t mmYV:s/-/><CR>GP`m
+" New task
+autocmd FileType text nnoremap <buffer> <LocalLeader>n }O<ESC>Vc  -<space>
+
+au BufRead,BufNewFile *.txt   syntax match PriorityMatch /\v^\s*\*.*$/
+hi def  PriorityColor    ctermfg=darkblue    guifg=blue
+hi link PriorityMatch PriorityColor
+
+au BufRead,BufNewFile *.txt   syntax match StrikeoutMatch /\v^\s*\*?\s*\~.*$/
+hi def  StrikeoutColor    ctermfg=black    guifg=blue
+hi link StrikeoutMatch StrikeoutColor
+
+au BufRead,BufNewFile *.txt   syntax match TransferMatch /\v^\s*\*?\s*\>.*$/
+hi def  TransferColor    ctermfg=black    guifg=blue
+hi link TransferMatch TransferColor
+
+au BufRead,BufNewFile *.txt   syntax match DoneMatch /\v^\s*\*?\s*✓.*$/
+hi def  DoneColor    ctermfg=darkgreen    guifg=blue
+hi link DoneMatch DoneColor
+
